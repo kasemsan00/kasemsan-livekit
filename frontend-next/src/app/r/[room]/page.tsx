@@ -1,7 +1,16 @@
 "use client";
 
 import "@livekit/components-styles";
-import { ControlBar, GridLayout, LiveKitRoom, ParticipantTile, RoomAudioRenderer, useTracks, VideoConference } from "@livekit/components-react";
+import {
+  ControlBar,
+  GridLayout,
+  LiveKitRoom,
+  ParticipantTile,
+  PreJoin,
+  RoomAudioRenderer,
+  useTracks,
+  VideoConference,
+} from "@livekit/components-react";
 import { getToken } from "@/request";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
@@ -11,30 +20,37 @@ export default function Room() {
   const params = useParams();
   const [token, setToken] = useState("");
 
-  useEffect(() => {
-    const initToken = async () => {
-      const resp = await getToken({ room: params.room + "" });
-      setToken(resp + "");
-    };
-    initToken().then((r) => r);
-  }, [params.room]);
+  const initToken = async (data: any) => {
+    console.log(data);
+    const resp = await getToken({ room: params.room + "", username: data.username });
+    setToken(resp + "");
+  };
 
-  if (token === "") {
-    return "";
-  }
+  const handlePreJoin = (data: any) => {
+    console.log(data);
+    initToken(data);
+  };
 
   return (
-    <LiveKitRoom
-      video={true}
-      audio={true}
-      token={token}
-      serverUrl={process.env.NEXT_PUBLIC_LK_SERVER_URL}
-      // Use the default LiveKit theme for nice styles.
-      data-lk-theme="default"
-      style={{ height: "100vh" }}
-    >
-      <VideoConference />
-      <RoomAudioRenderer />
-    </LiveKitRoom>
+    <>
+      <LiveKitRoom
+        video={true}
+        audio={true}
+        token={token + ""}
+        serverUrl={process.env.NEXT_PUBLIC_LK_SERVER_URL}
+        // Use the default LiveKit theme for nice styles.
+        data-lk-theme="default"
+        style={{ height: "100vh" }}
+      >
+        {token === "" ? (
+          <PreJoin onSubmit={handlePreJoin} />
+        ) : (
+          <>
+            <VideoConference />
+            <RoomAudioRenderer />
+          </>
+        )}
+      </LiveKitRoom>
+    </>
   );
 }

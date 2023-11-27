@@ -10,9 +10,13 @@ var cors = require("cors");
 var app = express();
 app.use(cors());
 
-const createToken = ({ room }) => {
+const createToken = ({ room, username }) => {
   const roomName = room;
-  const participantName = makeid(4);
+  // const participantName = makeid(4);
+  const participantName = username;
+  if (!roomName || !participantName) {
+    return null;
+  }
   const at = new livekit.AccessToken("APIByJUHrwJ4xoF", "efh4ujO9mZXFGxcOAxO2QRCf6NOVLm6SrDXe5lW9IuxC", {
     identity: participantName,
   });
@@ -44,10 +48,11 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/getToken", (req, res) => {
   const room = req.query.room;
+  const username = req.query.username;
   if (!room) {
     return res.status(400).send({ error: "roomName is required" });
   }
-  res.send(createToken({ room }));
+  res.send(createToken({ room, username }));
 });
 app.use("/", (req, res) => {
   res.send("");
