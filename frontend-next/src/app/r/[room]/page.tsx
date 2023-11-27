@@ -12,7 +12,6 @@ export default function Room() {
   const [token, setToken] = useState("");
 
   const initToken = async (data: any) => {
-    console.log(data);
     const resp = await getToken({ room: params.room + "", username: data.username });
     setToken(resp + "");
   };
