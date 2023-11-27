@@ -1,0 +1,13 @@
+version: "3.3"
+services:
+  livekit-react-test:
+    image : thspinsoft/livekit-react
+    container_name: livekit-react-test
+    restart: always
+    ports:
+      - "3100:3000"
+    networks:
+      - local-docker
+networks:
+  local-docker:
+    external: true
