@@ -23,24 +23,22 @@ export default function Room() {
   };
 
   return (
-    <>
-      <LiveKitRoom
-        video={true}
-        audio={true}
-        token={token + ""}
-        serverUrl={process.env.NEXT_PUBLIC_LK_SERVER_URL}
-        data-lk-theme="default"
-        style={{ height: "100vh" }}
-      >
-        {token === "" ? (
-          <PreJoin onSubmit={handlePreJoin} />
-        ) : (
-          <>
-            <VideoConference />
-            <RoomAudioRenderer />
-          </>
-        )}
-      </LiveKitRoom>
-    </>
+    <LiveKitRoom
+      video={true}
+      audio={true}
+      token={token + ""}
+      serverUrl={process.env.NEXT_PUBLIC_LK_SERVER_URL}
+      data-lk-theme="default"
+      style={{ height: "100vh" }}
+    >
+      {token === "" ? (
+        <PreJoin onSubmit={handlePreJoin} />
+      ) : (
+        <>
+          <VideoConference />
+          <RoomAudioRenderer />
+        </>
+      )}
+    </LiveKitRoom>
   );
 }
