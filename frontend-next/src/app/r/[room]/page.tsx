@@ -1,7 +1,7 @@
 "use client";
 
 import "@livekit/components-styles";
-import { LiveKitRoom, PreJoin, RoomAudioRenderer, VideoConference } from "@livekit/components-react";
+import { Chat, LiveKitRoom, PreJoin, RoomAudioRenderer, VideoConference } from "@livekit/components-react";
 import { getToken } from "@/request";
 import { useState } from "react";
 import { useParams } from "next/navigation";
@@ -34,6 +34,7 @@ export default function Room() {
         <PreJoin onSubmit={handlePreJoin} />
       ) : (
         <>
+          <Chat />
           <VideoConference />
           <RoomAudioRenderer />
         </>
