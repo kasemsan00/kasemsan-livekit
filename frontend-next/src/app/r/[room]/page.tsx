@@ -34,7 +34,7 @@ export default function Room() {
         <PreJoin onSubmit={handlePreJoin} />
       ) : (
         <>
-          <Chat />
+          {/* <Chat /> */}
           <VideoConference />
           <RoomAudioRenderer />
         </>
