@@ -52,7 +52,9 @@ app.get("/getToken", (req, res) => {
   if (!room) {
     return res.status(400).send({ error: "roomName is required" });
   }
-  res.send(createToken({ room, username }));
+  const respToken = createToken({ room, username });
+  console.log("room:", room, "token:", respToken);
+  res.send(respToken);
 });
 app.use("/", (req, res) => {
   res.send("");

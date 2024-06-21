@@ -1,1 +1,1 @@
-docker build --push -t thspinsoft/livekit-backend-api:latest .
+docker build --push -t thspinsoft/kasemsan-video-backend:latest .
